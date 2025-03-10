@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spark_tech_task/assignment/view/screen/sign_in.dart';
+import 'package:spark_tech_task/task1/view/screen/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,4 +15,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

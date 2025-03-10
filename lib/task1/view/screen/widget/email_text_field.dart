@@ -20,10 +20,16 @@ class EmailTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.red),
         ),
         enabledBorder: OutlineInputBorder(),
-        hintText: 'Email',
+        labelText: 'E-mail',
       ),
-      validator: (value){
-        if()
+      validator: (value) {
+        if (value == "" || value == null) {
+          return "email can't be empty";
+        } else if (!(value.toString().contains(".") ||
+            value.toString().contains("@"))) {
+          return "Please enter valid email";
+        }
+        return null;
       },
     );
   }
