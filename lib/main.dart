@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spark_tech_task/task1/view/screen/sign_in.dart';
+import 'package:spark_tech_task/task2/view/screen/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignIn(),
+      home: ProfileScreen(),
     );
   }
 }

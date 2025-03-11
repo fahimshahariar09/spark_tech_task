@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:spark_tech_task/task1/view/controller/api_controller/apis.dart';
+import 'package:spark_tech_task/apis.dart';
 
 class SignInService {
   static Future<bool> signInService(
