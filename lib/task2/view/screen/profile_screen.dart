@@ -11,17 +11,17 @@ class ProfileScreen extends StatelessWidget {
     final ProfileController controller = Get.put(ProfileController());
 
     return Scaffold(
-      appBar: AppBar(title: Text("Profile"),
-      centerTitle: true,),
+      appBar: AppBar(
+        title: Text("Profile"),
+        centerTitle: true,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         }
-
         if (controller.profile.value == null) {
           return Center(child: Text("Failed to load profile"));
         }
-
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -33,9 +33,15 @@ class ProfileScreen extends StatelessWidget {
             Text(controller.profile.value!.name,
                 style: TextStyle(fontSize: 20)),
             Text(controller.profile.value!.email,
-                style: TextStyle(fontSize: 16, color: Colors.grey)),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                )),
             Text(controller.profile.value!.phone,
-                style: TextStyle(fontSize: 16, color: Colors.blue)),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue,
+                )),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {

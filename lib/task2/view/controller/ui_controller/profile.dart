@@ -7,15 +7,15 @@ class ProfileController extends GetxController {
   var profile = Rx<Profile?>(null);
   var isLoading = false.obs;
 
-  @override
-  void onInit() {
-    fetchProfile();
-    super.onInit();
-  }
-
   Future<void> fetchProfile() async {
     isLoading.value = true;
     profile.value = await service.getProfile();
     isLoading.value = false;
+  }
+
+  @override
+  void onInit() {
+    fetchProfile();
+    super.onInit();
   }
 }
