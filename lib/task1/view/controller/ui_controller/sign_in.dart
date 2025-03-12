@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spark_tech_task/task1/view/controller/api_controller/sign_in.dart';
-import 'package:spark_tech_task/task1/view/screen/next_page.dart';
+import 'package:spark_tech_task/task2/view/screen/profile_screen.dart';
 
 class SignInController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -18,7 +18,7 @@ class SignInController extends GetxController {
     isLoading.value = false;
 
     if (status) {
-      Get.to(() => const NextPage());
+      Get.to(() => const ProfileScreen());
       return;
     }
   }

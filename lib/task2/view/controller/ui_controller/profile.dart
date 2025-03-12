@@ -3,19 +3,26 @@ import 'package:spark_tech_task/task2/view/controller/api_controller/profile.dar
 import 'package:spark_tech_task/task2/view/model/profile.dart';
 
 class ProfileController extends GetxController {
-  final ProfileService service = ProfileService();
-  var profile = Rx<Profile?>(null);
+  final ProfileService _apiService = ProfileService();
+  var userProfile = Rxn<UserProfile>();
   var isLoading = false.obs;
-
-  Future<void> fetchProfile() async {
-    isLoading.value = true;
-    profile.value = await service.getProfile();
-    isLoading.value = false;
-  }
+  var errorMessage = ''.obs;
 
   @override
   void onInit() {
     fetchProfile();
     super.onInit();
+  }
+
+  void fetchProfile() async {
+    try {
+      isLoading(true);
+      errorMessage('');
+      userProfile.value = await _apiService.fetchUserProfile();
+    } catch (e) {
+      errorMessage(e.toString());
+    } finally {
+      isLoading(false);
+    }
   }
 }

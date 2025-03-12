@@ -1,35 +1,31 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:spark_tech_task/local_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spark_tech_task/task2/view/model/profile.dart';
 
 class ProfileService {
-  final String baseUrl = "https://api.pentagoncare.online/api/v1";
+  static const String baseUrl = 'https://api.pentagoncare.online/api/v1/user/profile';
 
-  Future<Profile?> getProfile() async {
-    String? token = await SecureStorage.getToken();
-    if (token == null) return null;
+  Future<UserProfile> fetchUserProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('access_token');
 
-    try {
-      final response = await http.get(
-        Uri.parse("$baseUrl/user/profile"),
-        headers: {
-          "Authorization": "Bearer $token",
-          "Content-Type": "application/json",
-        },
-      );
+    if (token == null) {
+      throw Exception("No access token found. Please login again.");
+    }
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        return Profile.fromJson(data);
-      } else {
-        log("Error: ${response.body}");
-        return null;
-      }
-    } catch (e) {
-      log("Exception: $e");
-      return null;
+    final response = await http.get(
+      Uri.parse('$baseUrl/user/profile'),
+      headers: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return UserProfile.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load user profile: ${response.statusCode}');
     }
   }
 }

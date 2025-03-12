@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spark_tech_task/local_storage.dart';
 import 'package:spark_tech_task/task2/view/controller/ui_controller/profile.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -11,46 +10,35 @@ class ProfileScreen extends StatelessWidget {
     final ProfileController controller = Get.put(ProfileController());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text('Profile')),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         }
-        if (controller.profile.value == null) {
-          return Center(child: Text("Failed to load profile"));
+
+        if (controller.errorMessage.value.isNotEmpty) {
+          return Center(child: Text(controller.errorMessage.value));
         }
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(controller.profile.value!.avatar),
-            ),
-            SizedBox(height: 10),
-            Text(controller.profile.value!.name,
-                style: TextStyle(fontSize: 20)),
-            Text(controller.profile.value!.email,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                )),
-            Text(controller.profile.value!.phone,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue,
-                )),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await SecureStorage.removeToken();
-                Get.snackbar("Logout", "You have been logged out");
-              },
-              child: Text("Logout"),
-            ),
-          ],
+
+        if (controller.userProfile.value == null) {
+          return Center(child: Text('No user data found.'));
+        }
+
+        final user = controller.userProfile.value!;
+        return Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(user.avatar),
+              ),
+              SizedBox(height: 10),
+              Text(user.name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(user.email, style: TextStyle(fontSize: 16, color: Colors.grey)),
+            ],
+          ),
         );
       }),
     );
