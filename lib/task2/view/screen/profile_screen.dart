@@ -10,7 +10,10 @@ class ProfileScreen extends StatelessWidget {
     final ProfileController controller = Get.put(ProfileController());
 
     return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
+      appBar: AppBar(
+        title: Text('Profile'),
+        centerTitle: true,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -35,8 +38,10 @@ class ProfileScreen extends StatelessWidget {
                 backgroundImage: NetworkImage(user.avatar),
               ),
               SizedBox(height: 10),
-              Text(user.name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(user.email, style: TextStyle(fontSize: 16, color: Colors.grey)),
+              Text(user.name,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(user.email,
+                  style: TextStyle(fontSize: 16, color: Colors.grey)),
             ],
           ),
         );
